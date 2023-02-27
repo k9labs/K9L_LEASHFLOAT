@@ -40,11 +40,11 @@ export const Navbar = () => {
             <a className="navbar-link" href="#home" aria-label="Home">
               Home
             </a>
-            <a className="navbar-link" href="#features" aria-label="Features">
-              Features
+            <a className="navbar-link" href="#projects" aria-label="Projects">
+              Projects
             </a>
-            <a className="navbar-link" href="#pricing" aria-label="Pricing">
-              Pricing
+            <a className="navbar-link" href="#events" aria-label="Events">
+              Events
             </a>
             <a className="navbar-link" href="#feedback" aria-label="Feedback">
               Feedback
