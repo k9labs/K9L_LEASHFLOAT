@@ -4,9 +4,18 @@ import { motion } from 'framer-motion'
 import { InvitationModal } from './InvitationModal'
 import dashboard from '../assets/images/dashboard.jpg'
 
-export const Hero = () => {
+export const Hero = ({
+  name,
+  languages,
+  city,
+  region,
+  country,
+  currencyCode,
+  currencySymbol,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  city = decodeURIComponent(city)
+  
   return (
     <section
       className="w-screen  flex justify-center items-center bg-customDarkBg1 mb-[28vw] md:mb-[18vw] lg:mb-[10vw] xl:mb-[13vw] 2xl:mb-60 hero-bg-gradient pb-24 sm:pb-32 md:pb-44 lg:pb-0"
@@ -60,7 +69,7 @@ export const Hero = () => {
               className="w-80 sm:w-52 h-12 rounded-xl font-bold text-white border border-solid  flex justify-center items-center cursor-pointer bg-customDarkBg2 hover:bg-customDarkBg3 border-customPrimary transition"
               onClick={() => setIsModalOpen(true)}
             >
-              Live demo
+              {city}
             </div>
           </div>
         </motion.div>
