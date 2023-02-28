@@ -1,81 +1,92 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+const ip = Astro.request.headers.get('x-real-ip')
+const city = decodeURIComponent(Astro.request.headers.get('x-vercel-ip-city'))
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Astro Vercel Edge">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+		<h1>Hello from the <span class="text-gradient">Edge</span></h1>
+		<div class="banner">
+			<p>Your city<br /><strong>{city}</strong></p>
+			<p>Your IP address<br /><strong>{ip}</strong></p>
+		</div>
+		<p class="footer">Built with <a href="https://github.com/withastro/astro">Astro</a> and <a href="https://github.com/withastro/astro/tree/main/packages/integrations/vercel">@astrojs/vercel</a> — <a href="https://github.com/JuanM04/astro-on-the-edge">Source</a></p>
 	</main>
 </Layout>
 
 <style>
+	:root {
+		--color-border: hsl(17, 24%, 90%);
+		--astro-gradient: linear-gradient(0deg,#4F39FA, #DA62C4);
+		--night-sky-gradient: linear-gradient(0deg, #392362 -33%, #431f69 10%, #30216b 50%, #1f1638 100%);
+	}
+
+	h2 {
+		margin: 0;
+		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	h2 span {
+		display: inline-block;
+		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	code {
+		font-size: 0.875em;
+		border: 0.1em solid var(--color-border);
+		border-radius: 4px;
+		padding: 0.15em 0.25em;
+	}
+
 	main {
 		margin: auto;
-		padding: 1.5rem;
+    padding: 1em;
 		max-width: 60ch;
 	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
+
 	.text-gradient {
-		background-image: var(--accent-gradient);
+		font-weight: 900;
+		background-image: var(--astro-gradient);
 		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
+  	-webkit-text-fill-color: transparent;
+		background-size: 100% 200%;
+		background-position-y: 100%;
 		border-radius: 0.4rem;
+		animation: pulse 4s ease-in-out infinite;
 	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
+
+	@keyframes pulse {
+		0%, 100% {
+			background-position-y: 0%;
+		}
+		50% {
+			background-position-y: 80%;
+		}
 	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
+
+	.banner {
+		background-image: var(--night-sky-gradient);
+		padding: 0.5rem 1.5rem;
+		border-radius: 0.4rem;
+		color: var(--color-bg);
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 		gap: 1rem;
-		padding: 0;
+	}
+
+	.banner strong {
+		font-size: 1.75em;
+	}
+
+	.footer {
+		font-size: 0.8rem;
+		text-align: center;
+		margin-top: 3rem;
+	}
+
+	.footer a {
+		text-decoration: none;
 	}
 </style>
